@@ -14,17 +14,22 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
-
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+    <body class="min-h-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300 flex items-center justify-center">
+    <div class="flex w-full max-w-7xl p-6 gap-8">
+        <!-- Texto do lado esquerdo -->
+        <div class="w-2/3 text-white flex flex-col justify-center">
+            <h1 class="text-4xl font-bold mb-4">Produtos Naturais que Conectam Você à Essência da Vida</h1>
+            <p class="text-lg font-medium">
+                Na Porang, acreditamos que o bem-estar começa com escolhas conscientes. Por isso, oferecemos uma seleção especial de produtos naturais, artesanais e sustentáveis que respeitam seu corpo e o planeta.
+            </p>
         </div>
-    </body>
+
+        <!-- Card de login -->
+        <div class="w-1/3 bg-yellow-300 p-8 rounded-xl shadow-lg text-center border border-black">
+            <img src="/caminho/para/seu/logo.png" class="mx-auto mb-4 w-16 h-16" alt="Logo">
+            {{ $slot }}
+        </div>
+    </div>
+</body>
+
 </html>
