@@ -12,10 +12,10 @@ Sistema de Gestão de Vendas e Estoque desenvolvido para facilitar o controle de
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend**: `React.js` / `HTML`, `CSS`, `JavaScript`  
-- **Backend**: `Node.js` / `Python` / `Java` (ajuste conforme o seu)
-- **Banco de Dados**: `MySQL` / `SQLite` / `PostgreSQL`
-- **Outros**: (ex: `Bootstrap`, `Express`, `Django`, etc.)
+- **Frontend**: `Blade` 
+- **Backend**: `Laravel`
+- **Banco de Dados**: `MySQL`
+- **Outros**: (ex: `Aiven`
 
 ## 💻 Como Executar o Projeto
 
