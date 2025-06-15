@@ -15,7 +15,7 @@ Sistema de Gestão de Vendas e Estoque desenvolvido para facilitar o controle de
 - **Frontend**: `Blade` 
 - **Backend**: `Laravel`
 - **Banco de Dados**: `MySQL`
-- **Outros**: (ex: `Aiven`
+- **Outros**: (`Aiven`)
 
 ## 💻 Como Executar o Projeto
 
