@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produto;
+use App\Http\Requests\StoreProdutoRequest;
+use App\Models\CategoriaProduto; // Certifique-se de importar o modelo CategoriaProduto
 
 class ProdutoController extends Controller
 {
@@ -13,6 +16,7 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::paginate(10);
 
+
         return view('produtos.index', ['produtos' => $produtos]);
     }
 
@@ -21,15 +25,20 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = CategoriaProduto::all();
+        
+        return view('produtos.create', ['categorias' => $categorias]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProdutoRequest $request)
     {
-        //
+        Produto::create($request->validated());
+
+    // Redireciona para a lista de produtos com uma mensagem de sucesso
+    return redirect()->route('produtos.index')->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
