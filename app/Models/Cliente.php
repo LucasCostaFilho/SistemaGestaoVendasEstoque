@@ -13,17 +13,14 @@ class Cliente extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'nome_completo', 'cpf', 'cnpj', 'telefone', 'data_nascimento',
+        'user_id',
+        'nome_completo',
+        'cpf',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function enderecos(): HasMany
-    {
-        return $this->hasMany(Endereco::class, 'cliente_id');
     }
 
     public function vendas(): HasMany

@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('atributos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('atributo_id')->constrained()->onDelete('cascade');
-            $table->string('valor', 100);
-            $table->unique(['atributo_id', 'valor']);
-        });
+            $table->string('nome', 100)->unique(); // Ex: 'Cor', 'Tamanho'
+    });
     }
 
     /**

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained()->onDelete('restrict');
-            $table->foreignId('endereco_entrega_id')->constrained('enderecos')->onDelete('restrict');
             $table->dateTime('data_venda')->useCurrent();
             $table->decimal('valor_bruto', 10, 2);
             $table->decimal('desconto', 10, 2)->default(0);

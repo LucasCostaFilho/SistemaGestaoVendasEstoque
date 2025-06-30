@@ -14,11 +14,8 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->unique()->constrained()->onDelete('set null');
-            $table->string('nome_completo');
+            $table->string('nome_completo')->nullable();
             $table->string('cpf', 14)->nullable()->unique();
-            $table->string('cnpj', 18)->nullable()->unique();
-            $table->string('telefone', 15)->nullable();
-            $table->date('data_nascimento')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
