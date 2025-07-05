@@ -2,16 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Lista de Produtos') }}
+                {{ __('Categorias de Produto') }}
             </h2>
-            <div class="flex space-x-4">
-                <a href="{{ route('categorias.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-md text-sm">
-                    Gerenciar Categorias
-                </a>
-                <a href="{{ route('produtos.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm">
-                    Cadastrar Novo Produto
-                </a>
-            </div>
+            <a href="{{ route('categorias.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Nova Categoria</a>
         </div>
     </x-slot>
 
@@ -27,29 +20,23 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead>
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marca</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($produtos as $produto)
+                            @foreach ($categorias as $categoria)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $produto->id }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $produto->nome }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $produto->marca ?? 'N/A' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        {{-- Links para editar/deletar podem ser adicionados aqui --}}
-                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->id }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->nome }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-4">
-                        {{ $produtos->links() }}
+                     <div class="mt-4">
+                        {{ $categorias->links() }}
                     </div>
                 </div>
             </div>
