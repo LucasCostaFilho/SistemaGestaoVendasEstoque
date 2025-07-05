@@ -8,9 +8,10 @@
                 <a href="{{ route('categorias.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-md text-sm">
                     Gerenciar Categorias
                 </a>
-                <a href="{{ route('produtos.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm">
-                    Cadastrar Novo Produto
-                </a>
+                <x-action-button type="button" color="green">
+                    <i class="fas fa-check mr-2"></i>
+                    Cadastrar Produto
+                </x-action-button>
             </div>
         </div>
     </x-slot>
@@ -43,6 +44,19 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $produto->marca ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{-- Links para editar/deletar podem ser adicionados aqui --}}
+                                        <x-action-button color="blue" :href="route('produtos.show', $produto)" title="Ver Detalhes">
+                                            <i class="fas fa-eye"></i>
+                                        </x-action-button>
+                                        <x-action-button color="yellow" :href="route('produtos.edit', $produto)" title="Editar Produto">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </x-action-button>
+                                        <form method="POST" action="{{ route('produtos.destroy', $produto) }}" onsubmit="return confirm('ATENÇÃO! Esta ação é irreversível. Tem certeza que deseja EXCLUIR PERMANENTEMENTE este produto?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-action-button type="button" color="red" title="Deletar Produto">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </x-action-button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
