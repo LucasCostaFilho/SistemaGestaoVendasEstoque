@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CategoriaProduto;
+use App\Http\Requests\StoreCategoriaProdutoRequest;
+use App\Http\Requests\UpdateCategoriaProdutoRequest;
 
 class CategoriaProdutoController extends Controller
 {
@@ -27,17 +29,10 @@ class CategoriaProdutoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoriaProdutoRequest $request)
     {
-        $request->validate([
-            'nome' => 'required|string|max:100',
-            'descricao' => 'nullable|string',
-        ]);
+        CategoriaProduto::create($request->validated());
 
-        // Cria a categoria
-        CategoriaProduto::create($request->all());
-
-        // Redireciona de volta para a lista com mensagem de sucesso
         return redirect()->route('categorias.index')->with('success', 'Categoria cadastrada com sucesso!');
     }
 
@@ -52,24 +47,26 @@ class CategoriaProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CategoriaProduto $categoria)
     {
-        //
+        return view('categorias.edit', ['categoria' => $categoria]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoriaProdutoRequest $request, CategoriaProduto $categoria)
     {
-        //
+        $categoria->update($request->validated());
+    return redirect()->route('categorias.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CategoriaProduto $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->route('categorias.index')->with('success', 'Categoria excluída com sucesso!');
     }
 }

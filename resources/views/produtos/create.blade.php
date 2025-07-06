@@ -39,10 +39,14 @@
                             <input id="marca" class="block mt-1 w-full" type="text" name="marca" />
                         </div>
 
-                        <div class="flex items-center justify-end mt-4">
-                            <button type="submit" class="ms-3">
-                                Cadastrar Produto
-                            </button>
+                        <div class="flex items-center justify-end mt-6 pt-6 border-t border-gray-200">
+                            <x-back-button :href="route('produtos.index')" />
+                            <div class="ms-3">
+                                <x-action-button type="button" color="green">
+                                    <i class="fas fa-add mr-2"></i>
+                                    Cadastrar Produto
+                                </x-action-button>
+                            </div>
                         </div>
                     </form>
                 </div>

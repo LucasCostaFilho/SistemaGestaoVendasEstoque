@@ -4,7 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Categorias de Produto') }}
             </h2>
-            <a href="{{ route('categorias.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md">Nova Categoria</a>
+            <x-action-button type="link" color="green" :href="route('categorias.create')">
+                <i class="fas fa-add mr-2"></i>
+                Cadastrar Categoria
+            </x-action-button>
         </div>
     </x-slot>
 
@@ -24,6 +27,7 @@
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -31,6 +35,18 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->id }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $categoria->nome }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-2">
+                                        <x-action-button color="yellow" :href="route('categorias.edit', $categoria)" title="Editar Categoria">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </x-action-button>
+                                        <form method="POST" action="{{ route('categorias.destroy', $categoria) }}" onsubmit="return confirm('Tem certeza que deseja excluir esta categoria? Esta ação não pode ser desfeita.');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-action-button type="button" color="red" title="Excluir Categoria">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </x-action-button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

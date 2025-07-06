@@ -5,11 +5,12 @@
                 {{ __('Lista de Produtos') }}
             </h2>
             <div class="flex space-x-4">
-                <a href="{{ route('categorias.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-md text-sm">
+                <x-action-button type="link" color="gray" :href="route('categorias.index')">
+                    <i class="fas fa-gear mr-2"></i>
                     Gerenciar Categorias
-                </a>
-                <x-action-button type="button" color="green">
-                    <i class="fas fa-check mr-2"></i>
+                </x-action-button>
+                <x-action-button type="link" color="green" :href="route('produtos.create')">
+                    <i class="fas fa-add mr-2"></i>
                     Cadastrar Produto
                 </x-action-button>
             </div>

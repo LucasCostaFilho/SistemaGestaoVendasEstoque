@@ -23,9 +23,14 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <button type="submit" class="ms-3">
-                                Cadastrar Categoria
-                            </button>
+                            <x-back-button :href="route('categorias.index')" />
+
+                            <div class="ms-3">
+                                <x-action-button type="button" color="green">
+                                    <i class="fas fa-check mr-2"></i>
+                                    Cadastrar Categoria
+                                </x-action-button>
+                            </div>
                         </div>
                     </form>
                 </div>
