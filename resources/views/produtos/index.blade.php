@@ -5,6 +5,10 @@
                 {{ __('Lista de Produtos') }}
             </h2>
             <div class="flex space-x-4">
+                <x-action-button type="link" color="gray" :href="route('atributos.index')">
+                    <i class="fas fa-gear mr-2"></i>
+                    Gerenciar Atributos
+                </x-action-button>
                 <x-action-button type="link" color="gray" :href="route('categorias.index')">
                     <i class="fas fa-gear mr-2"></i>
                     Gerenciar Categorias

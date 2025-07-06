@@ -7,6 +7,8 @@ use App\Models\Produto;
 use App\Http\Requests\StoreProdutoRequest;
 use App\Models\CategoriaProduto;
 use App\Http\Requests\UpdateProdutoRequest;
+use App\Models\Atributo;
+
 
 class ProdutoController extends Controller
 {
@@ -47,7 +49,14 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        return view('produtos.show', ['produto' => $produto]);
+        $produto->load('variacoes.valores.atributo');
+
+        $atributos = Atributo::with('valores')->get(); 
+
+        return view('produtos.show', [
+            'produto' => $produto,
+            'atributos' => $atributos,
+        ]);
     }
 
     /**
