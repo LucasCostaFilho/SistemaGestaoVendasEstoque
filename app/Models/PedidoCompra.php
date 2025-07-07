@@ -17,7 +17,7 @@ class PedidoCompra extends Model
 
     public function fornecedor(): BelongsTo
     {
-        return $this->belongsTo(Fornecedor::class, 'fornecedor_id');
+        return $this->belongsTo(Fornecedor::class, 'fornecedor_id', 'id');
     }
 
     public function itens(): HasMany

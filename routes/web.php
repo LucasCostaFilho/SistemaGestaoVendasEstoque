@@ -9,6 +9,9 @@ use App\Http\Controllers\AtributoController;
 use App\Http\Controllers\ValorAtributoController;
 use App\Http\Controllers\PedidoCompraController;
 use App\Http\Controllers\FornecedorController;
+use App\Http\Controllers\ItemPedidoCompraController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VendaController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -50,11 +53,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/valores/{valor}/edit', [ValorAtributoController::class, 'edit'])->name('valores.edit');
     Route::put('/valores/{valor}', [ValorAtributoController::class, 'update'])->name('valores.update');
 
-    Route::resource('pedidos-compra', PedidoCompraController::class);
+    Route::resource('pedidos-compra', PedidoCompraController::class)
+        ->parameters(['pedidos-compra' => 'pedidoCompra']);
 
     Route::post('/pedidos-compra/{pedidoCompra}/receber', [PedidoCompraController::class, 'receberEstoque'])->name('pedidos-compra.receber');
 
     Route::resource('fornecedores', FornecedorController::class)
         ->parameters(['fornecedores' => 'fornecedor']);
+
+    Route::post('/pedidos-compra/{pedido}/itens', [ItemPedidoCompraController::class, 'store'])->name('item-pedidos-compra.store');
+    Route::delete('/item-pedidos-compra/{item}', [ItemPedidoCompraController::class, 'destroy'])->name('item-pedidos-compra.destroy');
+
+    Route::resource('clientes', ClienteController::class);
+
+    Route::resource('vendas', VendaController::class);
 });
 require __DIR__.'/auth.php';
