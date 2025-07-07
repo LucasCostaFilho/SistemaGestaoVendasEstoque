@@ -40,7 +40,7 @@ composer install
 
 4. **Instale as dependências do Node.js:**
 
-Certifique-se de ter o [Hodejs](https://nodejs.org/en) instalado. Em seguida, execute:
+Certifique-se de ter o [Nodejs](https://nodejs.org/en) instalado. Em seguida, execute:
 
 ```bash
 npm install
