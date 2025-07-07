@@ -10,6 +10,8 @@ class Fornecedor extends Model
 {
     use HasFactory;
 
+    protected $table = 'fornecedores';
+
     protected $fillable = ['razao_social', 'cnpj', 'email', 'telefone'];
 
     public function pedidosCompra(): HasMany

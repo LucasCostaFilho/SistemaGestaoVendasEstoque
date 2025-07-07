@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@alpinejs/mask": "^3.14.9",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/vite": "^4.0.0",
         "alpinejs": "^3.4.2",
