@@ -13,11 +13,16 @@ class PedidoCompra extends Model
 
     protected $table = 'pedidos_compra';
 
-    protected $fillable = ['fornecedor_id', 'data_pedido', 'status', 'valor_total'];
+    protected $fillable = ['fornecedor_id', 'user_id', 'data_pedido', 'status', 'valor_total'];
 
     public function fornecedor(): BelongsTo
     {
-        return $this->belongsTo(Fornecedor::class, 'fornecedor_id');
+        return $this->belongsTo(Fornecedor::class, 'fornecedor_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function itens(): HasMany

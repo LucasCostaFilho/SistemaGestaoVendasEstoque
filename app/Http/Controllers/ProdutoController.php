@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Http\Requests\StoreProdutoRequest;
-use App\Models\CategoriaProduto; // Certifique-se de importar o modelo CategoriaProduto
+use App\Models\CategoriaProduto;
+use App\Http\Requests\UpdateProdutoRequest;
+use App\Models\Atributo;
+
 
 class ProdutoController extends Controller
 {
@@ -26,7 +29,7 @@ class ProdutoController extends Controller
     public function create()
     {
         $categorias = CategoriaProduto::all();
-        
+
         return view('produtos.create', ['categorias' => $categorias]);
     }
 
@@ -44,32 +47,48 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Produto $produto)
     {
-        //
+        $produto->load('variacoes.valores.atributo');
+
+        $atributos = Atributo::with('valores')->get(); 
+
+        return view('produtos.show', [
+            'produto' => $produto,
+            'atributos' => $atributos,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Produto $produto)
     {
-        //
+        $categorias = CategoriaProduto::all();
+
+        return view('produtos.edit', [
+            'produto' => $produto,
+            'categorias' => $categorias
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProdutoRequest $request, Produto $produto)
     {
-        //
+        $produto->update($request->validated());
+
+        return redirect()->route('produtos.index')->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+
+        return redirect()->route('produtos.index')->with('success', 'Produto excluído permanentemente com sucesso!');
     }
 }

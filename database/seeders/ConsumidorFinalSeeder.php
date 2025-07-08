@@ -14,8 +14,9 @@ class ConsumidorFinalSeeder extends Seeder
     public function run(): void
     {
         Cliente::firstOrCreate(
-            ['cpf' => null],
-            ['nome_completo' => 'Consumidor Final']
-        );
+        ['cpf' => '000.000.000-00'], 
+        
+        ['nome_completo' => 'Consumidor Final']
+    );
     }
 }

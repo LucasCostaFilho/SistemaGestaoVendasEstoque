@@ -13,7 +13,7 @@ class MovimentacaoEstoque extends Model
 
     protected $table = 'movimentacoes_estoque';
 
-    protected $fillable = ['variacao_produto_id', 'tipo', 'quantidade', 'motivo', 'referencia_id', 'referencia_tipo', 'data_movimentacao'];
+    protected $fillable = ['variacao_produto_id', 'tipo', 'quantidade', 'motivo', 'referencia_id', 'referencia_type', 'data_movimentacao'];
 
     public function variacaoProduto(): BelongsTo
     {
