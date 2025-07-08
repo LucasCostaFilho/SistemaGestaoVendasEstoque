@@ -12,6 +12,10 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\ItemPedidoCompraController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VendaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\AjusteEstoqueController;
+use App\Http\Controllers\MovimentacaoEstoqueController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -67,5 +71,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('clientes', ClienteController::class);
 
     Route::resource('vendas', VendaController::class);
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/relatorios/estoque-baixo', [RelatorioController::class, 'estoqueBaixo'])->name('relatorios.estoque.baixo');
+
+    Route::get('/estoque', [MovimentacaoEstoqueController::class, 'index'])->name('estoque.index');
+
+    Route::get('/estoque/ajuste', [AjusteEstoqueController::class, 'create'])->name('estoque.ajuste.create');
+    
+    Route::post('/estoque/ajuste', [AjusteEstoqueController::class, 'store'])->name('estoque.ajuste.store');
+
 });
 require __DIR__.'/auth.php';

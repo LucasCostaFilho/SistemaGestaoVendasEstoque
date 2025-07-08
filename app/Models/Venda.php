@@ -12,7 +12,7 @@ class Venda extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cliente_id', 'endereco_entrega_id', 'data_venda', 'valor_bruto', 'desconto', 'valor_frete', 'valor_final', 'status'
+        'cliente_id', 'user_id', 'endereco_entrega_id', 'data_venda', 'valor_bruto', 'desconto', 'valor_frete', 'valor_final', 'status'
     ];
 
     public function cliente(): BelongsTo
@@ -34,4 +34,10 @@ class Venda extends Model
     {
         return $this->hasMany(Pagamento::class, 'venda_id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

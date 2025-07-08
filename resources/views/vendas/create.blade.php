@@ -9,30 +9,37 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900" 
-                     x-data="venda(
-                         {{ json_encode($clientePadrao) }},
-                         {{ json_encode($variacoes) }}
-                     )">
+                    x-data="venda(
+                        {{ json_encode($clientePadrao) }},
+                        {{ json_encode($variacoes) }}
+                    )">
 
-                    {{-- CORREÇÃO 1: Adicionada a tag de abertura do formulário --}}
+                    <div x-show="successMessage"
+                        x-transition
+                        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative mb-6" 
+                        role="alert"
+                        style="display: none;">
+                        <span class="block sm:inline" x-text="successMessage"></span>
+                        <button @click="successMessage = ''" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
                     <form @submit.prevent="finalizarVenda()">
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         
-                            {{-- COLUNA DA ESQUERDA: ITENS DA VENDA E TOTAL --}}
                             <div class="lg:col-span-2">
                                 <h3 class="text-lg font-semibold mb-4">Itens da Venda</h3>
 
-                                {{-- CAMPO DE BUSCA DE PRODUTOS --}}
                                 <div class="relative" @click.away="focoNaBusca = false">
                                     <label for="busca" class="block font-medium text-sm text-gray-700">Buscar Produto (por SKU ou Nome)</label>
                                     <input type="text" id="busca" 
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" 
-                                           placeholder="Digite para buscar..."
-                                           x-model="termoBusca"
-                                           @input.debounce.300ms="buscarProdutos()"
-                                           @focus="focoNaBusca = true">
+                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" 
+                                        placeholder="Digite para buscar..."
+                                        x-model="termoBusca"
+                                        @input.debounce.300ms="buscarProdutos()"
+                                        @focus="focoNaBusca = true">
                                     
-                                    {{-- ÁREA DE RESULTADOS DA BUSCA --}}
                                     <div x-show="focoNaBusca && termoBusca.length > 0" x-transition class="absolute z-10 w-full bg-white border rounded-md shadow-lg mt-1 max-h-60 overflow-y-auto" style="display: none;">
                                         <ul>
                                             <template x-for="resultado in resultadosBusca" :key="resultado.id">
@@ -48,7 +55,6 @@
                                     </div>
                                 </div>
 
-                                {{-- TABELA DO "CARRINHO" --}}
                                 <div class="border rounded-lg overflow-hidden mt-6">
                                     <table class="min-w-full divide-y divide-gray-200">
                                         <thead class="bg-gray-50">
@@ -91,7 +97,6 @@
                                 </div>
                             </div>
 
-                            {{-- COLUNA DA DIREITA: CLIENTE, PAGAMENTO E FINALIZAÇÃO --}}
                             <div class="lg:col-span-1">
                                 <div class="bg-gray-50 p-4 rounded-lg shadow">
                                     <h3 class="text-lg font-semibold mb-4">Cliente</h3>
@@ -114,8 +119,6 @@
                                 </div>
                             </div>
                         </div>
-
-                    {{-- CORREÇÃO 2: Adicionada a tag de fechamento do formulário --}}
                     </form>
 
                 </div>
@@ -209,8 +212,15 @@
                     })
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            window.location.href = result.redirect_url;
+                            this.successMessage = result.message;
+
+                            this.carrinho = [];
+
+                            this.clienteSelecionado = clientePadrao;
+
+                            this.termoBusca = '';
+
+                            setTimeout(() => this.successMessage = '', 5000);
                         }
                     })
                     .catch(error => {

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePedidoCompraRequest;
 use App\Models\Fornecedor;
 use App\Models\VariacaoProduto;
+use Illuminate\Support\Facades\Auth;
 
 
 class PedidoCompraController extends Controller
@@ -36,6 +37,10 @@ class PedidoCompraController extends Controller
     public function store(StorePedidoCompraRequest $request)
     {
         $pedidoCompra = PedidoCompra::create($request->validated());
+
+        $dadosValidados['user_id'] = Auth::id();
+
+        $pedidoCompra = PedidoCompra::create($dadosValidados);
 
         return redirect()->route('pedidos-compra.show', $pedidoCompra)
                         ->with('success', 'Pedido de compra criado! Agora adicione os itens.');
@@ -83,26 +88,21 @@ class PedidoCompraController extends Controller
 
     public function receberEstoque(Request $request, PedidoCompra $pedidoCompra)
     {
-        // Garante que a gente não dê entrada em um pedido já recebido ou cancelado
         if ($pedidoCompra->status !== 'rascunho') {
             return redirect()->back()->with('error', 'Este pedido não pode mais ser recebido.');
         }
 
-        // Garante que o pedido tenha itens antes de processar
         if ($pedidoCompra->itens->isEmpty()) {
             return redirect()->back()->with('error', 'Não é possível receber um pedido sem itens.');
         }
 
         try {
             DB::transaction(function () use ($pedidoCompra) {
-                // 1. Itera sobre cada item do pedido de compra
                 foreach ($pedidoCompra->itens as $item) {
                     $variacao = $item->variacaoProduto;
 
-                    // 2. Incrementa o estoque da variação correspondente
                     $variacao->increment('estoque_atual', $item->quantidade);
 
-                    // 3. Cria a movimentação de estoque, usando o ItemPedidoCompra como referência polimórfica
                     $variacao->movimentacoesEstoque()->create([
                         'tipo' => 'entrada',
                         'quantidade' => $item->quantidade,
@@ -112,11 +112,9 @@ class PedidoCompraController extends Controller
                     ]);
                 }
 
-                // 4. Atualiza o status do pedido de compra para "recebido_total"
                 $pedidoCompra->update(['status' => 'recebido_total']);
             });
         } catch (\Exception $e) {
-            // Em caso de qualquer erro, a transação é desfeita e nada é salvo.
             return redirect()->back()->with('error', 'Ocorreu um erro ao processar o recebimento: ' . $e->getMessage());
         }
 
