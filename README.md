@@ -38,7 +38,15 @@ Certifique-se de ter o [Composer](https://getcomposer.org/) instalado. Em seguid
 composer install
 ```
 
-4. **Configure o arquivo de ambiente:**
+4. **Instale as dependências do Node.js:**
+
+Certifique-se de ter o [Nodejs](https://nodejs.org/en) instalado. Em seguida, execute:
+
+```bash
+npm install
+```
+
+5. **Configure o arquivo de ambiente:**
 
 Copie o arquivo `.env.example` para `.env` e ajuste as configurações, como conexão com o banco de dados:
 
@@ -57,13 +65,13 @@ DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 ```
 
-5. **Gere a chave da aplicação:**
+6. **Gere a chave da aplicação:**
 
 ```bash
 php artisan key:generate
 ```
 
-6. **Execute as migrações do banco de dados:**
+7. **Execute as migrações do banco de dados:**
 
 Para criar as tabelas no banco de dados, execute:
 
@@ -71,9 +79,13 @@ Para criar as tabelas no banco de dados, execute:
 php artisan migrate
 ```
 
-7. **Inicie o servidor local:**
+8. **Inicie os servidores locais:**
 
 ```bash
 php artisan serve
+```
+Em outro terminal execute:
+```bash
+npm install
 ```
 O projeto estará disponível em `http://localhost:8000` (ou outra porta especificada).
