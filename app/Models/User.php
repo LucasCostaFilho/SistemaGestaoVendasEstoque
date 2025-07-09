@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -52,9 +53,16 @@ class User extends Authenticatable
     /**
      * Os papéis (roles) que pertencem ao usuário.
      */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class, 'role_user');
+    public function endereco() {
+        return $this->hasOne(Address::class);
+    }
+
+    public function telefone() {
+        return $this->hasOne(Phone::class);
+    }
+
+    public function role() {
+        return $this->belongsTo(Role::class);
     }
 
     /**

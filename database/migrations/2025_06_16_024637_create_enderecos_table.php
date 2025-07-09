@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained()->onDelete('cascade');
-            $table->enum('tipo', ['entrega', 'cobranca', 'comercial']);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('cep', 9);
             $table->string('logradouro');
             $table->string('numero', 20);
             $table->string('complemento', 100)->nullable();
             $table->string('bairro', 100);
             $table->string('cidade', 100);
-            $table->char('estado', 2);
-            $table->boolean('is_principal')->default(false);
             $table->timestamps();
         });
     }

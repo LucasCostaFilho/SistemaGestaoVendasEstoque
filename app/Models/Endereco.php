@@ -12,11 +12,11 @@ class Endereco extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'cliente_id', 'tipo', 'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'is_principal',
+        'user_id', 'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade',
     ];
 
-    public function cliente(): BelongsTo
+    public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
+        return $this->belongsTo(User::class);
     }
 }
