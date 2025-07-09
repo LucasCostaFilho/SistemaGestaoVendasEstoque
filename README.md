@@ -86,6 +86,6 @@ php artisan serve
 ```
 Em outro terminal execute:
 ```bash
-npm install
+npm run dev
 ```
 O projeto estará disponível em `http://localhost:8000` (ou outra porta especificada).
