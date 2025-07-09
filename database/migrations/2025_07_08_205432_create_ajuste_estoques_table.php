@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ajustes_estoque', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); 
-        $table->string('tipo');
-        $table->text('motivo');
-        $table->timestamps();
-    });
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); 
+            $table->string('tipo');
+            $table->text('motivo');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**

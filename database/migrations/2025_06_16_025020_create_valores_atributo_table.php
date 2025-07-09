@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('atributo_id')->constrained()->onDelete('cascade');
             $table->string('valor', 100);
             $table->unique(['atributo_id', 'valor']);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

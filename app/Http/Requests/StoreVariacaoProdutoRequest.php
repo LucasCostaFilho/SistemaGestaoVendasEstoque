@@ -24,7 +24,6 @@ class StoreVariacaoProdutoRequest extends FormRequest
         return [
         'sku' => 'required|string|unique:variacoes_produto,sku',
         'preco' => 'required|numeric|min:0',
-        'estoque_atual' => 'required|integer|min:0',
         'valores' => 'nullable|array',
         'valores.*' => 'nullable|exists:valores_atributo,id'
     ];

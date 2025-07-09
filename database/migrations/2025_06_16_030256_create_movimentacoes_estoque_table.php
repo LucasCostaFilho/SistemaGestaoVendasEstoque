@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('motivo')->nullable();
             $table->morphs('referencia'); // Cria referencia_id e referencia_tipo
             $table->dateTime('data_movimentacao')->useCurrent();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

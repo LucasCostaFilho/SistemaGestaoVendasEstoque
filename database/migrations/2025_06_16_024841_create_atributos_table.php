@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('atributos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100)->unique(); // Ex: 'Cor', 'Tamanho'
+            $table->string('nome', 100)->unique();
+            $table->timestamps();
+            $table->softDeletes();
     });
     }
 

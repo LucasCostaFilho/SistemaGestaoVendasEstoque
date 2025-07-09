@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['rascunho', 'enviado', 'recebido_parcial', 'recebido_total', 'cancelado'])->default('rascunho');
             $table->decimal('valor_total', 12, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

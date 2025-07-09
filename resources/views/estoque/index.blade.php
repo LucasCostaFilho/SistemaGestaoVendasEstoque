@@ -42,7 +42,19 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center font-bold">{{ $mov->quantidade }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $mov->observacao }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ optional($mov->referencia->user)->name ?? 'Sistema' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                                            @php
+                                                $usuario = null;
+                                                if ($mov->referencia instanceof \App\Models\ItemVenda) {
+                                                    $usuario = $mov->referencia->venda->user;
+                                                } elseif ($mov->referencia instanceof \App\Models\ItemPedidoCompra) {
+                                                    $usuario = $mov->referencia->pedidoCompra->user;
+                                                } elseif ($mov->referencia instanceof \App\Models\AjusteEstoque) {
+                                                    $usuario = $mov->referencia->user;
+                                                }
+                                            @endphp
+                                            {{ $usuario->name ?? 'Sistema' }}
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

@@ -10,8 +10,8 @@ class MovimentacaoEstoqueController extends Controller
     public function index()
     {
         $movimentacoes = MovimentacaoEstoque::with([
-            'variacaoProduto.produto',
-            'referencia.user'
+            'variacaoProduto.produto', 
+            'referencia' 
         ])
         ->latest('data_movimentacao')
         ->paginate(25);
