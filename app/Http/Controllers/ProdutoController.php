@@ -48,16 +48,27 @@ class ProdutoController extends Controller
      * Display the specified resource.
      */
     public function show(Produto $produto)
-    {
-        $produto->load('variacoes.valores.atributo');
+{
+    // Carregamos os relacionamentos necessários de forma explícita.
+    // Esta é a parte mais importante:
+    $produto->load([
+        // Para a relação 'categoria', passamos uma função customizada
+        'categoria' => function ($query) {
+            $query->withTrashed(); // withTrashed() diz: "inclua os registros da lixeira!"
+        },
+        // Também já carregamos as variações para otimizar
+        'variacoes.valores.atributo'
+    ]);
 
-        $atributos = Atributo::with('valores')->get(); 
+    // O controller de Pedido de Compra também precisa enviar a lista de atributos
+    // Vamos adicionar aqui também para a tela de 'show' do produto
+    $atributos = \App\Models\Atributo::with('valores')->get();
 
-        return view('produtos.show', [
-            'produto' => $produto,
-            'atributos' => $atributos,
-        ]);
-    }
+    return view('produtos.show', [
+        'produto' => $produto,
+        'atributos' => $atributos
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -87,8 +98,12 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        $produto->delete();
+        if ($produto->variacoes()->where('estoque_atual', '>', 0)->exists()) {
+        return redirect()->route('produtos.index')->with('error', 'Não é possível excluir um produto que ainda possui variações com estoque.');
+    }
 
-        return redirect()->route('produtos.index')->with('success', 'Produto excluído permanentemente com sucesso!');
+    $produto->delete();
+
+    return redirect()->route('produtos.index')->with('success', 'Produto desativado!');
     }
 }
