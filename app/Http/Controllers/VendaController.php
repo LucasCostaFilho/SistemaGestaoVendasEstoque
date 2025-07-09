@@ -42,7 +42,7 @@ class VendaController extends Controller
 
                 $novaVenda = Venda::create([
                     'cliente_id' => $clienteId,
-                    'user_id' => Auth::id(),
+                    'user_id' => auth()->id(),
                     'data_venda' => now(),
                     'valor_bruto' => $valorBruto,
                     'valor_final' => $valorBruto,
@@ -80,7 +80,7 @@ class VendaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Venda registrada com sucesso!',
-            'redirect_url' => route('vendas.show', $venda) // Futura tela de sucesso/detalhes da venda
+            'redirect_url' => route('vendas.show', $venda)
         ]);
     }
 

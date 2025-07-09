@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nome');
             $table->text('descricao')->nullable();
             $table->string('marca', 100)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

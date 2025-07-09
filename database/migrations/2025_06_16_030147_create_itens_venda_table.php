@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('preco_unitario', 10, 2);
             $table->decimal('subtotal', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

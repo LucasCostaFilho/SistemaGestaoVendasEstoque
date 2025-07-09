@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('valor_frete', 10, 2)->default(0);
             $table->decimal('valor_final', 10, 2);
             $table->enum('status', ['pendente_pagamento', 'processando', 'enviado', 'concluido', 'cancelado'])->default('pendente_pagamento');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

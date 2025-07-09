@@ -13,8 +13,19 @@ class CategoriaProdutoSeeder extends Seeder
      */
     public function run(): void
     {
-        CategoriaProduto::create(['nome' => 'Eletrônicos']);
-        CategoriaProduto::create(['nome' => 'Roupas e Acessórios']);
-        CategoriaProduto::create(['nome' => 'Alimentos e Bebidas']);
+        CategoriaProduto::create([
+            'nome' => 'Eletrônicos',
+            'descricao' => 'Produtos eletrônicos',
+        ]);
+
+        CategoriaProduto::create([
+            'nome' => 'Roupas',
+            'descricao' => 'Produtos de vestuário',
+        ]);
+
+        CategoriaProduto::create([
+            'nome' => 'Móveis',
+            'descricao' => 'Produtos para casa',
+        ]);
     }
 }

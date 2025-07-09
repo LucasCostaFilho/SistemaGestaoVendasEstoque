@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignId('variacao_id')->constrained('variacoes_produto')->onDelete('cascade');
             $table->foreignId('valor_id')->constrained('valores_atributo')->onDelete('cascade');
             $table->primary(['variacao_id', 'valor_id']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -184,12 +184,19 @@
                 },
                 
                 finalizarVenda() {
-                    if(this.carrinho.length === 0) {
-                        alert('Adicione pelo menos um item para finalizar a venda.');
-                        return;
+                    // 1. MENSAGEM DE DEPURAÇÃO: Verifique se a função está sendo chamada.
+                    console.log('Função finalizarVenda() foi chamada.');
+
+                    // 2. VERIFICAÇÃO DE CARRINHO VAZIO: Impede o envio se não houver itens.
+                    if (this.carrinho.length === 0) {
+                        alert('O carrinho está vazio. Adicione pelo menos um item para finalizar a venda.');
+                        console.log('Envio bloqueado: carrinho vazio.');
+                        return; // Para a execução da função aqui
                     }
 
-                    const csrfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+                    console.log('Carrinho validado. Enviando dados para o servidor...');
+                    
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                     const dadosVenda = {
                         cliente_id: this.clienteSelecionado.id,
                         itens: this.carrinho,
@@ -211,15 +218,21 @@
                         return response.json();
                     })
                     .then(result => {
+                        // --- A LÓGICA DE SUCESSO CORRIGIDA ESTÁ AQUI ---
                         if (result.success) {
+                            // 1. Define a mensagem de sucesso para ser exibida
                             this.successMessage = result.message;
 
+                            // 2. Limpa o carrinho
                             this.carrinho = [];
 
+                            // 3. Reseta o cliente para o padrão
                             this.clienteSelecionado = clientePadrao;
 
+                            // 4. Limpa o campo de busca
                             this.termoBusca = '';
 
+                            // 5. Faz a mensagem de sucesso desaparecer após 5 segundos
                             setTimeout(() => this.successMessage = '', 5000);
                         }
                     })

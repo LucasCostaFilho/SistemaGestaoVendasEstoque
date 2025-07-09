@@ -103,10 +103,6 @@
                                     <label for="preco" class="block font-medium text-sm text-gray-700">Preço</label>
                                     <input type="number" step="0.01" name="preco" id="preco" value="{{ old('preco') }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
                                 </div>
-                                <div>
-                                    <label for="estoque_atual" class="block font-medium text-sm text-gray-700">Estoque Inicial</label>
-                                    <input type="number" name="estoque_atual" id="estoque_atual" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" value="{{ old('estoque_atual', 0) }}" required>
-                                </div>
                             </div>
 
                             <div class="flex justify-end mt-4">

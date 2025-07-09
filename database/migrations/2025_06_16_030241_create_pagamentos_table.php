@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['pendente', 'aprovado', 'recusado', 'estornado'])->default('pendente');
             $table->string('transaction_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

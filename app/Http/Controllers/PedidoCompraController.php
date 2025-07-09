@@ -39,9 +39,7 @@ class PedidoCompraController extends Controller
         $pedidoCompra = PedidoCompra::create($request->validated());
 
         $dadosValidados['user_id'] = Auth::id();
-
-        $pedidoCompra = PedidoCompra::create($dadosValidados);
-
+        
         return redirect()->route('pedidos-compra.show', $pedidoCompra)
                         ->with('success', 'Pedido de compra criado! Agora adicione os itens.');
 
