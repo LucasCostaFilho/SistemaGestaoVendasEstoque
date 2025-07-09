@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 <body class="min-h-screen bg-gradient-to-r from-green-400 via-lime-300 to-yellow-300 flex items-center justify-center">
-    <div class="w-full max-w-md p-6 sm:p-8 bg-yellow-300 rounded-xl shadow-lg text-center border border-black">
+    <div class="w-full h-full max-w-xl p-6 sm:p-8 bg-yellow-300 rounded-xl shadow-lg text-center border border-black">
         <img src="{{ asset('images/Logsemfundo.png') }}" alt="Logo" class="mx-auto mb-4 w-16 h-16">
         {{ $slot }}
     </div>
