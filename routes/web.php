@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\AjusteEstoqueController;
 use App\Http\Controllers\MovimentacaoEstoqueController;
+use App\Http\Controllers\UsuarioController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -85,6 +86,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::match(['get', 'post'], '/relatorios/vendas', [RelatorioController::class, 'vendas'])->name('relatorios.vendas');
 
     Route::get('/relatorios/vendas/pdf', [RelatorioController::class, 'gerarVendasPDF'])->name('relatorios.vendas.pdf');
+
+    Route::resource('usuarios', UsuarioController::class)->middleware('can:manage-users');
 
 });
 require __DIR__.'/auth.php';

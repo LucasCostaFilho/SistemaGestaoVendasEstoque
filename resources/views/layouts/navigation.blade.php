@@ -40,6 +40,11 @@
                     <x-nav-link :href="route('relatorios.vendas')" :active="request()->routeIs('relatorios.vendas')">
                         {{ __('Relatórios') }}
                     </x-nav-link>
+                    @can('manage-users')
+                        <x-nav-link :href="route('usuarios.index')" :active="request()->routeIs('usuarios.*')">
+                            {{ __('Usuários') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
