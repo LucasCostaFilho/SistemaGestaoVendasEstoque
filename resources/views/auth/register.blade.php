@@ -72,7 +72,7 @@
                 <div class="mt-4">
                     <x-input-label for="telefone" :value="__('Telefone')" />
                     <x-text-input id="telefone" class="block mt-1 w-full" type="text" name="telefone"
-                        placeholder="(99) 99999-9999" :value="old('telefone')" required />
+                        placeholder="(99) 99999-9999" oninput="formatarTelefone(this)" required />
                     <x-input-error :messages="$errors->get('telefone')" class="mt-2" />
                 </div>
             </div>
@@ -84,14 +84,14 @@
                     <div>
                         <x-input-label for="cep" :value="__('Seu CEP')" />
                         <x-text-input id="cep" class="block mt-1 w-full" type="text" name="cep"
-                            placeholder="00000-000" :value="old('cep')" required />
+                            placeholder="00000-000" oninput="formatarCep(this)" required />
                         <x-input-error :messages="$errors->get('cep')" class="mt-2" />
                     </div>
                     <!-- Logradouro -->
                     <div class="mt-2">
                         <x-input-label for="logradouro" :value="__('Logradouro')" />
                         <x-text-input id="logradouro" class="block mt-1 w-full" type="text" name="logradouro"
-                            placeholder="Rua Exemplo, 123" :value="old('logradouro')" required />
+                            placeholder="Rua Exemplo" :value="old('logradouro')" required />
                         <x-input-error :messages="$errors->get('logradouro')" class="mt-2" />
                     </div>
                     <!-- Numero -->
@@ -138,3 +138,55 @@
         </div>
     </form>
 </x-guest-layout>
+<script>
+    function formatarCep(input) {
+        let value = input.value.replace(/\D/g, '');
+
+        if (value.length > 8) value = value.slice(0, 8);
+
+        if (value.length >= 6) {
+            input.value = value.slice(0, 5) + '-' + value.slice(5);
+        } else {
+            input.value = value;
+        }
+
+        // Chama buscarCep automaticamente quando completar 8 dígitos
+        if (value.length === 8) {
+            buscarCep(value);
+        }
+    }
+
+    function buscarCep(cep = null) {
+        cep = cep || document.getElementById('cep').value.replace(/\D/g, '');
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    alert('CEP não encontrado!');
+                    return;
+                }
+
+                document.getElementById('logradouro').value = data.logradouro || '';
+                document.getElementById('bairro').value = data.bairro || '';
+                document.getElementById('cidade').value = data.localidade || '';
+            })
+            .catch(() => {
+                alert('Erro ao buscar CEP!');
+            });
+    }
+
+    function formatarTelefone(input) {
+        let value = input.value.replace(/\D/g, '');
+
+        if (value.length > 11) value = value.slice(0, 11);
+
+        if (value.length >= 2 && value.length <= 6) {
+            input.value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+        } else if (value.length > 6) {
+            input.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+        } else {
+            input.value = value;
+        }
+    }
+</script>

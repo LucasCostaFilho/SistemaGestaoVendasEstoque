@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role_id' => ['required', 'exists:roles,id'],
             'telefone' => ['required', 'string', 'max:20'],
-            'cep' => ['required', 'string', 'max:10'],
+            'cep' => ['required', 'regex:/^\d{5}-?\d{3}$/'],
             'logradouro' => ['required', 'string', 'max:255'],
             'numero' => ['required', 'string'],
             'complemento' => ['required', 'string'],
@@ -51,6 +51,7 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'role_id' => $request->role_id,
             ]);
             Endereco::create([
                 'user_id' => $user->id,
