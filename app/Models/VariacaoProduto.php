@@ -21,7 +21,7 @@ class VariacaoProduto extends Model
 
     public function produto(): BelongsTo
     {
-        return $this->belongsTo(Produto::class, 'produto_id');
+        return $this->belongsTo(Produto::class, 'produto_id')->withTrashed();
     }
 
     public function valores(): BelongsToMany

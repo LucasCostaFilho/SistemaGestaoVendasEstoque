@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-teal-800 dark:bg-teal-900 border-b border-teal-700 dark:border-teal-800">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -29,6 +29,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('estoque.index')" :active="request()->routeIs('estoque.*')">
                         {{ __('Estoque') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('relatorios.vendas')" :active="request()->routeIs('relatorios.vendas')">
+                        {{ __('Relatórios') }}
                     </x-nav-link>
                 </div>
             </div>

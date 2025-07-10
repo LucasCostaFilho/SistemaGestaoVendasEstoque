@@ -22,6 +22,6 @@ class ItemVenda extends Model
 
     public function variacaoProduto(): BelongsTo
     {
-        return $this->belongsTo(VariacaoProduto::class, 'variacao_produto_id');
+        return $this->belongsTo(VariacaoProduto::class, 'variacao_produto_id')->withTrashed();
     }
 }

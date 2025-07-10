@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Gerenciar Fornecedores') }}</h2>
+            <h2 class="font-semibold text-xl text-white leading-tight">{{ __('Gerenciar Fornecedores') }}</h2>
             <x-action-button type="link" color="green" :href="route('fornecedores.create')">
                 <i class="fas fa-plus mr-2"></i> Novo Fornecedor
             </x-action-button>

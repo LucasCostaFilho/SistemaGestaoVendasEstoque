@@ -30,10 +30,15 @@ class VariacaoProdutoController extends Controller
 
     public function destroy(VariacaoProduto $variacao)
     {
+        if ($variacao->estoque_atual > 0) {
+            return redirect()->back()->with('error', 'Não é possível excluir uma variação que ainda possui estoque (Estoque Atual: ' . $variacao->estoque_atual . '). Zere o estoque através de um ajuste manual antes de excluir.');
+        }
+
         $produtoId = $variacao->produto_id;
+
         $variacao->delete();
 
-        return redirect()->route('produtos.show', $produtoId)->with('success', 'Variação movida para a lixeira!');
+        return redirect()->route('produtos.show', $produtoId)->with('success', 'Variação desativada!');
     }
 
     public function edit(VariacaoProduto $variacao)

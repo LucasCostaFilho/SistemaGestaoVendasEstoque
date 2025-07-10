@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Cadastrar Novo Fornecedor') }}</h2>
+        <h2 class="font-semibold text-xl text-white leading-tight">{{ __('Cadastrar Novo Fornecedor') }}</h2>
     </x-slot>
 
     <div class="py-12">
@@ -8,7 +8,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if ($errors->any())
                     <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
-                       @foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach
+                        @foreach ($errors->all() as $error) <li>{{ $error }}</li> @endforeach
                     </div>
                 @endif
                 <form method="POST" action="{{ route('fornecedores.store') }}">

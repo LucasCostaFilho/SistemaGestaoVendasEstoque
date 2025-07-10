@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             Detalhes do Produto: {{ $produto->nome }}
         </h2>
     </x-slot>
@@ -8,21 +8,36 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
-                {{-- O div principal agora está limpo, sem a lógica 'x-data' do modal --}}
                 <div class="p-6 text-gray-900">
-
-                    {{-- INFORMAÇÕES GERAIS DO PRODUTO --}}
+                    @if (session('success'))
+                        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg" role="alert">
+                            <p>{{ session('success') }}</p>
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg" role="alert">
+                            <p>{{ session('error') }}</p>
+                        </div>
+                    @endif
                     <div class="mb-6 pb-4 border-b">
                         <h3 class="text-lg font-bold mb-2">{{ $produto->nome }}</h3>
                         <p><strong>Marca:</strong> {{ $produto->marca ?? 'Não informada' }}</p>
-                        <p><strong>Categoria:</strong> {{ $produto->categoria->nome ?? 'Sem Categoria' }}</p>
+                        <p><strong>Categoria:</strong>
+                            @if ($produto->categoria)
+                                @if ($produto->categoria->trashed())
+                                    <span class="line-through text-red-500">{{ $produto->categoria->nome }}</span>
+                                    <span class="text-xs text-red-700 bg-red-100 px-2 py-1 rounded-full ms-2">Desativada</span>
+                                @else
+                                    {{ $produto->categoria->nome }}
+                                @endif
+                            @else
+                                Sem Categoria
+                            @endif
+                        </p>
                     </div>
 
-                    {{-- SEÇÃO DE VARIAÇÕES --}}
                     <h4 class="text-md font-bold mb-4">Variações e Estoque</h4>
 
-                    {{-- TABELA DE VARIAÇÕES EXISTENTES --}}
                     <div class="mb-6 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -40,7 +55,6 @@
                                         <td class="px-4 py-2 whitespace-nowrap">
                                             @foreach ($variacao->valores as $valor)
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                                    {{-- CORREÇÃO: Usando a propriedade correta 'valor' em vez de 'nome' --}}
                                                     {{ $valor->atributo->nome ?? 'Atributo' }}: {{ $valor->valor }}
                                                 </span>
                                             @endforeach
@@ -49,7 +63,6 @@
                                         <td class="px-4 py-2 whitespace-nowrap">R$ {{ number_format($variacao->preco, 2, ',', '.') }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap">{{ $variacao->estoque_atual }}</td>
                                         <td class="px-4 py-2 whitespace-nowrap text-sm font-medium flex items-center space-x-2">
-                                            {{-- CORREÇÃO: O botão de editar agora é um link que leva para a página de edição --}}
                                             <x-action-button type="link" color="yellow" :href="route('variacoes.edit', $variacao)" title="Editar Variação" class="w-8 h-8 justify-center">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </x-action-button>
@@ -71,13 +84,11 @@
                         </table>
                     </div>
 
-                    {{-- FORMULÁRIO PARA ADICIONAR NOVA VARIAÇÃO COM ATRIBUTOS --}}
                     <div class="mt-8 pt-6 border-t">
                         <h5 class="text-md font-bold mb-4">Adicionar Nova Variação</h5>
                         <form method="POST" action="{{ route('variacoes.store', $produto) }}">
                             @csrf
-                            
-                            {{-- CORREÇÃO: Removido o bloco duplicado de atributos --}}
+
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4 p-4 border rounded-md bg-gray-50">
                                 <h6 class="col-span-full font-semibold text-sm text-gray-600">Selecione os Atributos</h6>
                                 @foreach ($atributos as $atributo)
@@ -86,7 +97,6 @@
                                         <select name="valores[]" id="atributo_{{ $atributo->id }}" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
                                             <option value="">Selecione...</option>
                                             @foreach ($atributo->valores as $valor)
-                                                {{-- CORREÇÃO: Usando a propriedade correta 'valor' em vez de 'nome' --}}
                                                 <option value="{{ $valor->id }}">{{ $valor->valor }}</option>
                                             @endforeach
                                         </select>

@@ -38,8 +38,8 @@ class PedidoCompraController extends Controller
     {
         $pedidoCompra = PedidoCompra::create($request->validated());
 
-        $dadosValidados['user_id'] = Auth::id();
-        
+        $pedidoCompra['user_id'] = auth()->id();
+
         return redirect()->route('pedidos-compra.show', $pedidoCompra)
                         ->with('success', 'Pedido de compra criado! Agora adicione os itens.');
 
@@ -51,9 +51,9 @@ class PedidoCompraController extends Controller
     public function show(PedidoCompra $pedidoCompra)
     {
         $pedidoCompra->load(['fornecedor', 'itens.variacaoProduto.produto']);
-    
+
         $variacoes = \App\Models\VariacaoProduto::with('produto')->get();
-    
+
         return view('pedidos-compra.show', [
             'pedido' => $pedidoCompra,
             'variacoes' => $variacoes,

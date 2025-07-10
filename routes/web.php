@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     // Rota do Dashboard
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -47,7 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/variacoes/{variacao}/edit', [VariacaoProdutoController::class, 'edit'])->name('variacoes.edit');
 
     Route::put('/variacoes/{variacao}', [VariacaoProdutoController::class, 'update'])->name('variacoes.update');
-    
+
     Route::delete('/variacoes/{variacao}', [VariacaoProdutoController::class, 'destroy'])->name('variacoes.destroy');
 
     Route::resource('atributos', AtributoController::class);
@@ -79,8 +79,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/estoque', [MovimentacaoEstoqueController::class, 'index'])->name('estoque.index');
 
     Route::get('/estoque/ajuste', [AjusteEstoqueController::class, 'create'])->name('estoque.ajuste.create');
-    
+
     Route::post('/estoque/ajuste', [AjusteEstoqueController::class, 'store'])->name('estoque.ajuste.store');
+
+    Route::match(['get', 'post'], '/relatorios/vendas', [RelatorioController::class, 'vendas'])->name('relatorios.vendas');
+
+    Route::get('/relatorios/vendas/pdf', [RelatorioController::class, 'gerarVendasPDF'])->name('relatorios.vendas.pdf');
 
 });
 require __DIR__.'/auth.php';
