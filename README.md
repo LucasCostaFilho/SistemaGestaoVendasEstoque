@@ -89,3 +89,6 @@ Em outro terminal execute:
 npm run dev
 ```
 O projeto estará disponível em `http://localhost:8000` (ou outra porta especificada).
+
+## 🗃️ Link de acesso aos relatórios individuais
+[Google Drive](https://drive.google.com/drive/folders/1m9ZQdlMLrELQsKMp6Tfw2o_PCbcRX27N?usp=sharing)
