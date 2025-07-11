@@ -15,13 +15,6 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @auth
-                        @if(auth()->user()->role_id === 1)
-                        <x-nav-link :href="route('register')">
-                            {{ __('Cadastrar Usuário') }}
-                        </x-nav-link>
-                        @endif
-                    @endauth
                     <x-nav-link :href="route('produtos.index')" :active="request()->routeIs('produtos.*')">
                         {{ __('Produtos') }}
                     </x-nav-link>
